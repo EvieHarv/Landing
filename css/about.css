@@ -1,4 +1,44 @@
-.about-list a 
-{
+.about-list a {
     color: #1EA8A4;
+}
+
+.row {
+    margin:0 -15px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+  
+.column {
+    padding:0 25px;
+    flex: 50%;
+} 
+
+@media screen and (max-width: 600px) {
+    .column {
+      width: 100%;
+    }
+} 
+
+@media screen and (min-width: 64em) {
+    .about-content {
+        max-width: 85rem;
+        padding: 2rem 6rem;
+        margin: 0 auto;
+        font-size: 1.1rem
+    }
+}
+
+@media screen and (min-width: 42em) and (max-width: 64em) {
+    .about-content {
+        padding: 2rem 4rem;
+        font-size: 1.1rem
+    }
+}
+
+@media screen and (max-width: 42em) {
+    .about-content {
+        padding: 2rem 1rem;
+        font-size: 1rem
+    }
 }
