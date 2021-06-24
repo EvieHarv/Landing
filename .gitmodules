@@ -1,0 +1,4 @@
+[submodule "startpage"]
+	path = startpage
+	url = https://github.com/EthanHarv/Startpage.git
+	branch = master
