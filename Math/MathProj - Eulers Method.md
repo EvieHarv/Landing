@@ -47,7 +47,7 @@ You take a starting point, figure out the *direction* (aka slope) that your func
 Let's say you're given this problem:
 $$ \frac{dy}{dx} = 2x,\, y(1) = 1$$
 
-> Approximate $y(2$) using a step size of $h = 0.25$
+> Approximate $y(2$) using a step size of $\Delta{x} = 0.25$
 
 We've been told that at point $x=1$, $y=1$. 
 That seems important, so let's write it down.
