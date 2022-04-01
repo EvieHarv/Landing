@@ -1,5 +1,5 @@
 # Eulers Method - Ethan Harvey
-## Basically, math: but we cheat.
+## Basically, math: but we gave up.
 
 ### IM IN A HURRY WHAT DOES THE TABLE LOOK LIKE
 It looks like this:
@@ -20,7 +20,7 @@ There you go.
 
 > In [mathematics](https://en.wikipedia.org/wiki/Mathematics "Mathematics") and [computational science](https://en.wikipedia.org/wiki/Computational_science "Computational science"), the **Euler method** (also called **forward Euler method**) is a first-order [numerical](https://en.wikipedia.org/wiki/Numerical_analysis "Numerical analysis") procedure for solving [ordinary differential equations](https://en.wikipedia.org/wiki/Ordinary_differential_equation "Ordinary differential equation") (ODEs) with a given [initial value](https://en.wikipedia.org/wiki/Initial_value_problem "Initial value problem").
 
-Which doesn't really help, because it's probably 2am (it is right now) and brain no work. So like, what actually do we do with it?
+Which doesn't really help, because it's probably 2am (it is right now) and brain no work. So like, what do we actually do with it?
 
 well, it's a method for approximating solutions to differential equations.
 
@@ -46,7 +46,9 @@ You take a starting point, figure out the *direction* (aka slope) that your func
 
 Let's say you're given this problem:
 $$ \frac{dy}{dx} = 2x,\, y(1) = 1$$
-$$ \text{Approximate } y(2) \text{ using a step size of .25} $$
+
+> Approximate $y(2$) using a step size of $h = 0.25$
+
 We've been told that at point $x=1$, $y=1$. 
 That seems important, so let's write it down.
 
@@ -69,7 +71,7 @@ $$\frac{dy}{dx}\Delta{x} = 2(.25) = .5$$
 
 | x   | y   | $\frac{dy}{dx}$ | $\frac{dy}{dx}\Delta{x}$ |
 | --- | --- | --------------- | ------------------------ |
-| 1   | 1   | 1               | .5                      |
+| 1   | 1   | 2               | .5                      |
 
 Finally, realize this: when multiplying $\frac{dy}{dx}\Delta{x}$, that's just showing you how much you've moved up from the original point. So, take that $\frac{dy}{dx}\Delta{x}$ and add it to your original position of $y=1$. This gives 
 $$\frac{dy}{dx}\Delta{x}+y=.5+1=1.5$$
@@ -77,14 +79,14 @@ This is your *new $y$ position*. What you're saying is, if you move over $x$ by 
 
 | x    | y   | $\frac{dy}{dx}$ | $\frac{dy}{dx}\Delta{x}$ | $y_{new}$ |
 | ---- | --- | --------------- | ------------------------ | ------- |
-| 1    | 1   | 1               | .5                       | 1.5     |
+| 1    | 1   | 2               | .5                       | 1.5     |
 | 1.25 | 1.5 |                 |                          |         |
 
 Now, repeat! I won't tediously go through it all, but here's what the final table looks like:
 
 | x    | y     | $\frac{dy}{dx}$ | $\frac{dy}{dx}\Delta{x}$ | $y_{n}$ |
 | ---- | ----- | --------------- | ------------------------ | ----- |
-| 1    | 1     | 1               | .5                       | 1.5   |
+| 1    | 1     | 2               | .5                       | 1.5   |
 | 1.25 | 1.5   | 2.5             | .625                     | 2.125 |
 | 1.5  | 2.125 | 3               | .75                      | 2.875 |
 | 1.75 | 2.875 | 3.5             | .875                     | 3.75  |
@@ -95,8 +97,8 @@ So, your final answer is:
 $$ y(2) \approx 3.75$$
 Woo!
 
-### That didn't help. Let someone else explain.
+### That didn't help. Please let someone else explain
 
 Alright, alright, I tried, ok? It took a lot of effort to format all of that...
 
-Here's a nice [Khan Academy](https://www.khanacademy.org/math/ap-calculus-bc/bc-differential-equations-new/bc-7-5/v/eulers-method) video set, and another decent video by [The Origanic Chemistry Tutor](https://www.youtube.com/watch?v=ukNbG7muKho) with some more examples. Their methods may differ some in how they look, but are doing the same thing.
+Here's a nice [Khan Academy](https://www.khanacademy.org/math/ap-calculus-bc/bc-differential-equations-new/bc-7-5/v/eulers-method) video set, and another decent video by [The Organic Chemistry Tutor](https://www.youtube.com/watch?v=ukNbG7muKho) with some more examples. Their methods may differ some in how they look, but are doing the same thing.
