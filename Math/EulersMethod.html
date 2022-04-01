@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>MathProj - Eulers Method</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="eulers-method---ethan-harvey">Eulers Method - Ethan Harvey</h1>
+<h2 id="basically-math-but-we-cheat.">Basically, math: but we
+cheat.</h2>
+<h3 id="im-in-a-hurry-what-does-the-table-look-like">IM IN A HURRY WHAT
+DOES THE TABLE LOOK LIKE</h3>
+<p>It looks like this:</p>
+<table>
+<thead>
+<tr class="header">
+<th>x</th>
+<th>y</th>
+<th><span class="math inline">\frac{dy}{dx}</span></th>
+<th><span class="math inline">\frac{dy}{dx}\Delta{x}</span></th>
+<th><span class="math inline">y_{n}</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>.5</td>
+<td>1.5</td>
+</tr>
+<tr class="even">
+<td>1.25</td>
+<td>1.5</td>
+<td>2.5</td>
+<td>.625</td>
+<td>2.125</td>
+</tr>
+<tr class="odd">
+<td>1.5</td>
+<td>2.125</td>
+<td>3</td>
+<td>.75</td>
+<td>2.875</td>
+</tr>
+<tr class="even">
+<td>1.75</td>
+<td>2.875</td>
+<td>3.5</td>
+<td>.875</td>
+<td>3.75</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>3.75</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>There you go.</p>
+<h3 id="ok-so-whats-this-euler-method-thing">Ok so, what’s this “euler
+method” thing</h3>
+<p><a href="https://en.wikipedia.org/wiki/Euler_method">Wikipedia</a>
+says:</p>
+<blockquote>
+<p>In <a href="https://en.wikipedia.org/wiki/Mathematics"
+title="Mathematics">mathematics</a> and <a
+href="https://en.wikipedia.org/wiki/Computational_science"
+title="Computational science">computational science</a>, the
+<strong>Euler method</strong> (also called <strong>forward Euler
+method</strong>) is a first-order <a
+href="https://en.wikipedia.org/wiki/Numerical_analysis"
+title="Numerical analysis">numerical</a> procedure for solving <a
+href="https://en.wikipedia.org/wiki/Ordinary_differential_equation"
+title="Ordinary differential equation">ordinary differential
+equations</a> (ODEs) with a given <a
+href="https://en.wikipedia.org/wiki/Initial_value_problem"
+title="Initial value problem">initial value</a>.</p>
+</blockquote>
+<p>Which doesn’t really help, because it’s probably 2am (it is right
+now) and brain no work. So like, what actually do we do with it?</p>
+<p>well, it’s a method for approximating solutions to differential
+equations.</p>
+<p>which im sure <em>really</em> helps</p>
+<h3
+id="wait-so-what-exactly-is-a-differential-equation-again-i-kinda-know-but-its-been-awhile-and-its-a-bit-fuzzy">Wait,
+so what exactly is a differential equation again? i kinda know, but its
+been awhile and it’s a bit fuzzy…</h3>
+<p>Bascially, any equation where a derivative is set equal to some
+combination of x and y</p>
+<p>Example: <span class="math display">\frac{dy}{dx}=3x-2y</span> And
+importantly, recall that when you solve these, you get a
+<em>function</em>. Remember slope fields? yeah, those. given a different
+starting position (basically, a point you have to hit), you get
+different functions</p>
+<figure>
+<img src="SlopeFields.png"
+alt="Here’s the slope field for that example, with some of the specific solutions graphed out" />
+<figcaption aria-hidden="true">Here’s the slope field for that example,
+with some of the specific solutions graphed out</figcaption>
+</figure>
+<p>Okay, I’ll get to the point now:</p>
+<p>With Euler’s method, you’re pretty much saying: “I dont want to find
+the actual solution to this mess, so I’m just going to slowly
+<em>guess</em> at one”</p>
+<p>You take a starting point, figure out the <em>direction</em> (aka
+slope) that your function is going in, take a tiny “step” in that
+direction, and then start the process again.</p>
+<h3 id="words-make-no-sense-example-needed">Words make no sense, example
+needed</h3>
+<p>Let’s say you’re given this problem: <span class="math display">
+\frac{dy}{dx} = 2x,\, y(1) = 1</span> <span class="math display">
+\text{Approximate } y(2) \text{ using a step size of .25} </span> We’ve
+been told that at point <span class="math inline">x=1</span>, <span
+class="math inline">y=1</span>. That seems important, so let’s write it
+down.</p>
+<table>
+<thead>
+<tr class="header">
+<th>x</th>
+<th>y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>So, let’s figure out the direction we’re headed in at this point
+(slope). We take our points, <span class="math inline">x=1</span>, <span
+class="math inline">y=1</span>, and plug them into <span
+class="math inline">\frac{dy}{dx}</span>. Doing this,</p>
+<p><span class="math display">\frac{dy}{dx} = 2x = 2(1) = 2</span></p>
+<p>Great, so we have a slope of 2 at this point. Add it to the table</p>
+<table>
+<thead>
+<tr class="header">
+<th>x</th>
+<th>y</th>
+<th><span class="math inline">\frac{dy}{dx}</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>1</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<p>So, that’s our direction: a line with slope of 2. Now, we take a step
+in that direction by multiplying by our step size. (Recall step size,
+<span class="math inline">\Delta{x} = .25</span>). Add it to the table.
+<span class="math display">\frac{dy}{dx}\Delta{x} = 2(.25) =
+.5</span></p>
+<table>
+<thead>
+<tr class="header">
+<th>x</th>
+<th>y</th>
+<th><span class="math inline">\frac{dy}{dx}</span></th>
+<th><span class="math inline">\frac{dy}{dx}\Delta{x}</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>.5</td>
+</tr>
+</tbody>
+</table>
+<p>Finally, realize this: when multiplying <span
+class="math inline">\frac{dy}{dx}\Delta{x}</span>, that’s just showing
+you how much you’ve moved up from the original point. So, take that
+<span class="math inline">\frac{dy}{dx}\Delta{x}</span> and add it to
+your original position of <span class="math inline">y=1</span>. This
+gives <span
+class="math display">\frac{dy}{dx}\Delta{x}+y=.5+1=1.5</span> This is
+your <em>new <span class="math inline">y</span> position</em>. What
+you’re saying is, if you move over <span class="math inline">x</span> by
+<span class="math inline">.25</span> (step size) to <span
+class="math inline">x=1.25</span>, your <span
+class="math inline">y</span> will go to <span
+class="math inline">1.5</span>. So, that’s a whole new point: <span
+class="math inline">(1.25, 1.5)</span>. Write it down!</p>
+<table>
+<thead>
+<tr class="header">
+<th>x</th>
+<th>y</th>
+<th><span class="math inline">\frac{dy}{dx}</span></th>
+<th><span class="math inline">\frac{dy}{dx}\Delta{x}</span></th>
+<th><span class="math inline">y_{new}</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>.5</td>
+<td>1.5</td>
+</tr>
+<tr class="even">
+<td>1.25</td>
+<td>1.5</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Now, repeat! I won’t tediously go through it all, but here’s what the
+final table looks like:</p>
+<table>
+<thead>
+<tr class="header">
+<th>x</th>
+<th>y</th>
+<th><span class="math inline">\frac{dy}{dx}</span></th>
+<th><span class="math inline">\frac{dy}{dx}\Delta{x}</span></th>
+<th><span class="math inline">y_{n}</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>.5</td>
+<td>1.5</td>
+</tr>
+<tr class="even">
+<td>1.25</td>
+<td>1.5</td>
+<td>2.5</td>
+<td>.625</td>
+<td>2.125</td>
+</tr>
+<tr class="odd">
+<td>1.5</td>
+<td>2.125</td>
+<td>3</td>
+<td>.75</td>
+<td>2.875</td>
+</tr>
+<tr class="even">
+<td>1.75</td>
+<td>2.875</td>
+<td>3.5</td>
+<td>.875</td>
+<td>3.75</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>3.75</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>So, your final answer is:</p>
+<p><span class="math display"> y(2) \approx 3.75</span> Woo!</p>
+<h3 id="that-didnt-help.-let-someone-else-explain.">That didn’t help.
+Let someone else explain.</h3>
+<p>Alright, alright, I tried, ok? It took a lot of effort to format all
+of that…</p>
+<p>Here’s a nice <a
+href="https://www.khanacademy.org/math/ap-calculus-bc/bc-differential-equations-new/bc-7-5/v/eulers-method">Khan
+Academy</a> video set, and another decent video by <a
+href="https://www.youtube.com/watch?v=ukNbG7muKho">The Origanic
+Chemistry Tutor</a> with some more examples. Their methods may differ
+some in how they look, but are doing the same thing.</p>
+</body>
+</html>
