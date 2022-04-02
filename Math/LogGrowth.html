@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Logistic Growth</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="logistic-growth---ethan-harvey">Logistic Growth - Ethan
+Harvey</h1>
+<h2
+id="is-it-just-me-or-do-they-look-like-elongated-integration-symbols">is
+it just me or do they look like elongated integration symbols</h2>
+<h6 id="they-totally-do">they totally do</h6>
+<hr />
+<h2 id="quick-equation-reference">quick equation reference</h2>
+<p><span class="math display"> \frac{dy}{dt} = ky(L-y) \;\;\text{ or
+}\;\; \frac{dy}{dt}= kyL -ky^2</span> <span class="math display"> y=
+\frac{L}{1+Ce^{-Lkt}} </span> <em>(Recall: “Lice minus licked”)</em></p>
+<p>Where:</p>
+<ul>
+<li><span class="math inline">L</span> = Carrying Capacity</li>
+<li><span class="math inline">k</span> = Growth Rate</li>
+<li><span class="math inline">C</span> = Controls y-intercept (not
+directly)
+<ul>
+<li>Exact starting value at <span
+class="math inline">\frac{L}{1+C}</span>, from simply saying <span
+class="math inline">e^0 = 1</span></li>
+</ul></li>
+</ul>
+<p>Also recall that the fastest growth rate occurs at <span
+class="math inline">y=\frac{L}{2}</span>.</p>
+<h2 id="ok-so-whatre-these-about-again">ok so what’re these about
+again</h2>
+<p>You’ve got something that wants to grow in an exponential fashion,
+but it’s limited by some carrying capacity (e.g. there’s a limited food
+supply, limited space, maximum logical amount, etc.). As you take the
+limit as <span class="math inline">t \rightarrow \infty</span>, this
+function will trend towards that carrying capacity <span
+class="math inline">L</span>.</p>
+<p>If you just wanna play with the variables, <a
+href="https://www.desmos.com/calculator/5ffwdnnds1">here’s</a> a quick
+desmos graph.</p>
+<p><img src="LogGrowth.png" /></p>
+<h2
+id="example-time-as-a-quick-refresher-which-i-totally-didnt-steal-from-our-homework">example
+time as a quick refresher (which i totally didn’t steal from our
+homework)</h2>
+<p>The rate at which the flu spreads in a community is modeled by: <span
+class="math display">\frac{dP}{dt} = 0.001P(3000-P)</span> Where <span
+class="math inline">t</span> is measured in days.</p>
+<ol type="1">
+<li>If <span class="math inline">P(0) = 50</span>, solve for P as a
+function of <span class="math inline">t</span> (aka get the actual
+logistic)</li>
+</ol>
+<p><span class="math display">P(t) =
+\frac{3000}{1+Ce^{-(3000(0.001))t}}</span> <span
+class="math display">P(t) = \frac{3000}{1+Ce^{-3t}}</span> Given <span
+class="math inline">P(0) = 50</span>, <span class="math display">50 =
+\frac{3000}{1+C}</span> <span class="math display">50+50C = 3000</span>
+<span class="math display">50C = 2950</span> <span
+class="math display">C=59</span> <span class="math display">\boxed{P(t)
+= \frac{3000}{1+59e^{-3t}}}</span> 2. When is the flu spreading the
+fastest?</p>
+<p><span class="math display">\frac{L}{2} = \frac{3000}{2} =
+\frac{3000}{1+59e^{-3t}}</span> <span class="math display">1500 =
+\frac{3000}{1+59e^{-3t}}</span></p>
+<p><span class="math display">1500+1500(59e^{-3t}) = 3000</span> <span
+class="math display">1500(59e^{-3t}) = 1500</span> <span
+class="math display">e^{-3t} = \frac{1}{59}</span> <span
+class="math display">e^{3t} = 59</span> <span
+class="math display">\boxed{t=\frac{\ln(59)}{3} \approx 1.36 \text{
+Days}}</span></p>
+<h2 id="resources-n-cool-things">resources n cool things</h2>
+<p>i love sal khan, so here’s a <a
+href="https://www.khanacademy.org/math/old-ap-calculus-bc/bc-diff-equations/bc-logistic-models/v/analyzing-logistic-differential-equations">khanacademy
+video</a> with a worked word problem</p>
+<p>also here’s the slope field of it, for all those different given
+starting values. note how if it starts above the carrying capacity it
+goes back down to it, making a stable equilibrium at <span
+class="math inline">L</span> (or as they call it in the graph, <span
+class="math inline">C</span>).</p>
+<figure>
+<img src="LogSlopeField.png"
+alt="i just like how these look, they’re all swoopy and cool" />
+<figcaption aria-hidden="true">i just like how these look, they’re all
+swoopy and cool</figcaption>
+</figure>
+<p>ok that’s pretty much it, these honestly aren’t all that bad</p>
+<p>i believe in you, good luck 🙏</p>
+</body>
+</html>
