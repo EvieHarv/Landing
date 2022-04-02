@@ -7,7 +7,7 @@
 
 ## quick equation reference
 
-$$ \frac{dy}{dt} = ky(L-y) \;\;\text{ or }\;\; \frac{dy}{dt}= kyL -ky^2$$
+$$\frac{dy}{dt} = ky(L-y)$$
 $$ y= \frac{L}{1+Ce^{-Lkt}} $$
 *(Recall: "Lice minus licked")*
 
